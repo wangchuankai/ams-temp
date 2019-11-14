@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import router from './router'
-console.log(router)
 import store from './store'
 
 import NProgress from 'nprogress' // progress bar
@@ -14,7 +13,6 @@ const whiteList = ['login', 'register', 'registerResult'] // no redirect whiteli
 
 router.beforeEach((to, from, next) => {
   NProgress.start() // start progress bar
-  console.log(to)
   if (Vue.ls.get(ACCESS_TOKEN)) {
     /* has token */
     if (to.path === '/user/login') {
@@ -44,9 +42,9 @@ router.beforeEach((to, from, next) => {
               message: '错误',
               description: '请求用户信息失败，请重试'
             })
-            // store.dispatch('Logout').then(() => {
-            //   next({ path: '/user/login', query: { redirect: to.fullPath } })
-            // })
+            store.dispatch('Logout').then(() => {
+              next({ path: '/user/login', query: { redirect: to.fullPath } })
+            })
           })
       } else {
         next()

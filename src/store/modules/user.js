@@ -65,7 +65,6 @@ const user = {
     GetInfo ({ commit }) {
       return new Promise((resolve, reject) => {
         getInfo(0).then(response => {
-          console.log(response)
           let navList = response.nav || [];
           let info = response.userinfo || {};
           var navIds = [];
@@ -102,8 +101,7 @@ const user = {
         commit('SET_TOKEN', '')
         commit('SET_ROLES', [])
         Vue.ls.remove(ACCESS_TOKEN)
-
-        logout(state.token).then(() => {
+        logout(state.info.id).then(() => {
           resolve()
         }).catch(() => {
           resolve()

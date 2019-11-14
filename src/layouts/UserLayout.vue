@@ -6,7 +6,7 @@
           <a href="/">
             <!-- <img src="~@/assets/logo.svg" class="logo" alt="logo"> -->
             <img src="@assets/logo-pls.png" class="logo" alt="logo">
-            <span class="title">AMS</span>
+            <span class="title">资产管理系统</span>
           </a>
         </div>
         <div class="desc">
