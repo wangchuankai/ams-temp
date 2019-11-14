@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import axios from 'axios'
 import store from '@/store'
+import {getBearer} from './util'
+
 import {
   VueAxios
 } from './axios'
@@ -44,16 +46,28 @@ const err = (error) => {
 
 // request interceptor
 service.interceptors.request.use(config => {
-  const token = Vue.ls.get(ACCESS_TOKEN)
+  const token = Vue.ls.get(ACCESS_TOKEN);
+  const bearer = getBearer();
   if (token) {
     config.headers['Access-Token'] = token // 让每个请求携带自定义 token 请根据实际情况自行修改
+  }
+  if(bearer){
+    config.headers['Authorization'] = bearer
   }
   return config
 }, err)
 
 // response interceptor
 service.interceptors.response.use((response) => {
-  return response.data
+  console.log(response)
+  if(response.data.code === 0){
+    return response.data.data;
+  }else{
+    notification.error({
+      message: '请求未成功',
+      description: response.data.msg
+    })
+  }
 }, err)
 
 const installer = {

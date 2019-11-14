@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import router from './router'
+console.log(router)
 import store from './store'
 
 import NProgress from 'nprogress' // progress bar
@@ -13,19 +14,18 @@ const whiteList = ['login', 'register', 'registerResult'] // no redirect whiteli
 
 router.beforeEach((to, from, next) => {
   NProgress.start() // start progress bar
-
+  console.log(to)
   if (Vue.ls.get(ACCESS_TOKEN)) {
     /* has token */
     if (to.path === '/user/login') {
-      next({ path: '/dashboard/workplace' })
+      next({ path: '/index' })
       NProgress.done()
     } else {
       if (store.getters.roles.length === 0) {
         store
           .dispatch('GetInfo')
-          .then(res => {
-            const roles = res.result && res.result.role
-            store.dispatch('GenerateRoutes', { roles }).then(() => {
+          .then(navIds => {
+            store.dispatch('GenerateRoutes', { navIds }).then(() => {
               // 根据roles权限生成可访问的路由表
               // 动态添加可访问路由表
               router.addRoutes(store.getters.addRouters)
@@ -44,9 +44,9 @@ router.beforeEach((to, from, next) => {
               message: '错误',
               description: '请求用户信息失败，请重试'
             })
-            store.dispatch('Logout').then(() => {
-              next({ path: '/user/login', query: { redirect: to.fullPath } })
-            })
+            // store.dispatch('Logout').then(() => {
+            //   next({ path: '/user/login', query: { redirect: to.fullPath } })
+            // })
           })
       } else {
         next()

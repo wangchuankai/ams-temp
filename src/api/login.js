@@ -1,61 +1,51 @@
-import api from './index'
-import { axios } from '@/utils/request'
 
+import { axios } from '@/utils/request'
+let api = 'api';
 /**
  * login func
  * parameter: {
  *     username: '',
- *     password: '',
- *     remember_me: true,
- *     captcha: '12345'
+ *     password: ''
  * }
  * @param parameter
  * @returns {*}
  */
 export function login (parameter) {
   return axios({
-    url: '/auth/login',
+    url: '/center/login/login',
     method: 'post',
     data: parameter
   })
 }
-
-export function getSmsCaptcha (parameter) {
-  return axios({
-    url: api.SendSms,
-    method: 'post',
-    data: parameter
+//验证登入状态接口
+export const getCheck = (parameter) => {
+  return axios.request({
+      url:  '/center/login/check',
+      data:parameter,
+      method: 'post'
   })
 }
 
-export function getInfo () {
+export function getInfo (source) {
   return axios({
-    url: '/user/info',
-    method: 'get',
-    headers: {
-      'Content-Type': 'application/json;charset=UTF-8'
-    }
-  })
-}
-
-export function logout () {
-  return axios({
-    url: '/auth/logout',
+    url: '/center/common/info',
     method: 'post',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
-    }
+    },
+    data:{source}
   })
 }
 
-/**
- * get user 2step code open?
- * @param parameter {*}
- */
-export function get2step (parameter) {
+export function logout (uid) {
   return axios({
-    url: api.twoStepCode,
+    url: '/center/login/logout',
     method: 'post',
-    data: parameter
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data:{uid}
   })
 }
+
+

@@ -17,13 +17,13 @@ export const asyncRouterMap = [
         name: 'purchasing',
         redirect: '/dashboard/workplace',
         component: RouteView,
-        meta: { title: '采购管理', keepAlive: true, icon: bxAnaalyse, permission: [ 'dashboard' ] },
+        meta: { title: '采购管理', keepAlive: true, icon: bxAnaalyse, permission: [9]},
         children: [
           {
             path: '/purchasing/order',
             name: 'order',
             component: () => import('@/views/purchasing/Order'),
-            meta: { title: '采购订单', keepAlive: false, permission: [ 'dashboard' ] }
+            meta: { title: '采购订单', keepAlive: false, permission: [9] }
           }
         ]
       },
@@ -33,13 +33,13 @@ export const asyncRouterMap = [
         name: 'exception',
         component: RouteView,
         redirect: '/exception/403',
-        meta: { title: '异常页', icon: 'warning', permission: [ 'exception' ] },
+        meta: { title: '异常页', icon: 'warning', permission: [9] },
         children: [
           {
             path: '/exception/403',
             name: 'Exception403',
             component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/403'),
-            meta: { title: '403', permission: [ 'exception' ] }
+            meta: { title: '403', permission: [ 9 ] }
           },
           {
             path: '/exception/404',
@@ -136,16 +136,6 @@ export const constantRouterMap = [
         path: 'login',
         name: 'login',
         component: () => import(/* webpackChunkName: "user" */ '@/views/user/Login')
-      },
-      {
-        path: 'register',
-        name: 'register',
-        component: () => import(/* webpackChunkName: "user" */ '@/views/user/Register')
-      },
-      {
-        path: 'register-result',
-        name: 'registerResult',
-        component: () => import(/* webpackChunkName: "user" */ '@/views/user/RegisterResult')
       }
     ]
   },

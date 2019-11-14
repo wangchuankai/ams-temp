@@ -1,8 +1,8 @@
 import Vue from 'vue'
-import { login, getInfo, logout } from '@/api/login'
+import { login, getInfo, logout ,getCheck } from '@/api/login'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { welcome } from '@/utils/util'
-
+import { setToken ,setBearer} from "@utils/util"
 const user = {
   state: {
     token: '',
@@ -37,9 +37,23 @@ const user = {
     Login ({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
         login(userInfo).then(response => {
-          const result = response.result
+          const result = response
+          setToken(result.token);
           Vue.ls.set(ACCESS_TOKEN, result.token, 7 * 24 * 60 * 60 * 1000)
           commit('SET_TOKEN', result.token)
+          resolve(result.token)
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+     // check
+     Check ({ commit },token) {
+      return new Promise((resolve, reject) => {
+        getCheck(token).then(response => {
+          let result = response
+          let Bearer = result.token;
+          setBearer(Bearer);
           resolve()
         }).catch(error => {
           reject(error)
@@ -50,29 +64,32 @@ const user = {
     // 获取用户信息
     GetInfo ({ commit }) {
       return new Promise((resolve, reject) => {
-        getInfo().then(response => {
-          const result = response.result
-
-          if (result.role && result.role.permissions.length > 0) {
-            const role = result.role
-            role.permissions = result.role.permissions
-            role.permissions.map(per => {
-              if (per.actionEntitySet != null && per.actionEntitySet.length > 0) {
-                const action = per.actionEntitySet.map(action => { return action.action })
-                per.actionList = action
-              }
-            })
-            role.permissionList = role.permissions.map(permission => { return permission.permissionId })
-            commit('SET_ROLES', result.role)
-            commit('SET_INFO', result)
+        getInfo(0).then(response => {
+          console.log(response)
+          let navList = response.nav || [];
+          let info = response.userinfo || {};
+          var navIds = [];
+          if (navList.length > 0) {
+             // 获取 Access 的数组
+             const filtersNavids = function(tree) {
+               tree.forEach(obj => {
+                 navIds.push(Number(obj.id));
+                 if (obj.child && obj.child.length) {
+                   filtersNavids(obj.child);
+                 }
+               });
+             };
+             filtersNavids(navList);
+             commit('SET_ROLES', navList)
+             commit('SET_INFO', info)
           } else {
-            reject(new Error('getInfo: roles must be a non-null array !'))
+            reject(new Error('返回路由信息不可为空 !'))
           }
 
-          commit('SET_NAME', { name: result.name, welcome: welcome() })
-          commit('SET_AVATAR', result.avatar)
+          commit('SET_NAME', { name: info.nickname, welcome: welcome() })
+          commit('SET_AVATAR', '/avatar2.jpg')
 
-          resolve(response)
+          resolve(navIds)
         }).catch(error => {
           reject(error)
         })

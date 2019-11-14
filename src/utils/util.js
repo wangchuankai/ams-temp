@@ -1,3 +1,6 @@
+import Cookies from 'js-cookie';
+let cookieExpires =1;  //cookie 过期时间1天
+
 export function timeFix () {
   const time = new Date()
   const hour = time.getHours()
@@ -57,4 +60,46 @@ export function removeLoadingAnimate (id = '', timeout = 1500) {
   setTimeout(() => {
     document.body.removeChild(document.getElementById(id))
   }, timeout)
+}
+
+
+
+//设置 cookie信息  和 设置check信息
+let TOKEN_KEY = 'utoken';
+export const setToken = (token) => {
+  if (process.env.NODE_ENV === 'development') {//
+      Cookies.set(TOKEN_KEY, token, { expires: cookieExpires || 1 })
+  }else{
+      Cookies.set(TOKEN_KEY, token, { 
+          expires: cookieExpires || 1 ,
+          domain: 'piaoliusan.com' ,
+          path: ''
+      })
+  }
+}
+
+
+export const getToken = () => {
+      // const token = Cookies.get(TOKEN_KEY);
+      //可以获取 piaoliusan.com utoken
+      const token = Cookies.get().utoken;
+      if (token) return token
+      else return false
+  }
+  //请求头参数
+export const setBearer = (bearer) => {
+  if (process.env.NODE_ENV === 'development') {
+      Cookies.set('bearer', 'Bearer ' + bearer, { expires: cookieExpires || 1 })
+  }else{
+      Cookies.set('bearer', 'Bearer ' + bearer, { 
+          expires: cookieExpires || 1 ,
+          domain: 'piaoliusan.com' ,
+          path: ''
+      })
+  }
+}
+export const getBearer = () => {
+  const bearer = Cookies.get().bearer;
+  if (bearer) return bearer
+  else return false
 }

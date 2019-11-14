@@ -8,40 +8,24 @@ import { asyncRouterMap, constantRouterMap } from '@/config/router.config'
  * @returns {boolean}
  */
 function hasPermission (permission, route) {
+  let navIds = permission.navIds;
   if (route.meta && route.meta.permission) {
-    let flag = false
-    for (let i = 0, len = permission.length; i < len; i++) {
-      flag = route.meta.permission.includes(permission[i])
-      if (flag) {
-        return true
-      }
+    if(navIds.includes(route.meta.permission[0])){
+      return true;
+    }else{
+      return false;
     }
-    return false
   }
   return true
 }
 
-/**
- * 单账户多角色时，使用该方法可过滤角色不存在的菜单
- *
- * @param roles
- * @param route
- * @returns {*}
- */
-// eslint-disable-next-line
-function hasRole(roles, route) {
-  if (route.meta && route.meta.roles) {
-    return route.meta.roles.includes(roles.id)
-  } else {
-    return true
-  }
-}
 
-function filterAsyncRouter (routerMap, roles) {
+function filterAsyncRouter (routerMap, navIds) {
+  
   const accessedRouters = routerMap.filter(route => {
-    if (hasPermission(roles.permissionList, route)) {
+    if (hasPermission(navIds, route)) {
       if (route.children && route.children.length) {
-        route.children = filterAsyncRouter(route.children, roles)
+        route.children = filterAsyncRouter(route.children, navIds)
       }
       return true
     }
@@ -62,10 +46,9 @@ const permission = {
     }
   },
   actions: {
-    GenerateRoutes ({ commit }, data) {
+    GenerateRoutes ({ commit }, navIds) {
       return new Promise(resolve => {
-        const { roles } = data
-        const accessedRouters = filterAsyncRouter(asyncRouterMap, roles)
+        const accessedRouters = filterAsyncRouter(asyncRouterMap, navIds)
         commit('SET_ROUTERS', accessedRouters)
         resolve()
       })

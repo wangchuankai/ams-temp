@@ -2,21 +2,22 @@
   <div class="footer">
     <div class="links">
       <a
-        href="https://pro.loacg.com/"
+        href="http://user.piaoliusan.com/"
         target="_blank"
-      >Pro 首页</a>
+      >用户中心</a>
       <a
-        href="https://github.com/sendya/ant-design-pro-vue"
+        href="http://crm.piaoliusan.com/"
         target="_blank"
       >
-        <a-icon type="github" />
-      </a>
-      <a href="https://ant.design/">Ant Design</a>
-      <a href="https://vue.ant.design/">Vue Antd</a>
+        <!-- <a-icon type="github" /> -->
+          CRM系统
+        </a>
+      <a href="http://css.piaoliusan.com/">客服系统</a>
+      <a href="http://bi.piaoliusan.com/">BI系统</a>
     </div>
     <div class="copyright">
       Copyright
-      <a-icon type="copyright" /> 2018 <span>白鹭学园技术组出品</span>
+      <a-icon type="copyright" />  2017-2018 深圳市漂流伞科技有限公司 粤ICP备17058669号
     </div>
   </div>
 </template>

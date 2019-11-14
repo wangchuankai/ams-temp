@@ -37,6 +37,7 @@ module.exports = {
       .set('@views', resolve('src/views'))
       .set('@layout', resolve('src/layout'))
       .set('@static', resolve('src/static'))
+      .set('@utils', resolve('src/utils'))
 
     const svgRule = config.module.rule('svg')
     svgRule.uses.clear()
@@ -89,12 +90,18 @@ module.exports = {
     // development server port 8000
     port: 8000,
     proxy: {
-      '/api': {
-        // target: 'https://mock.ihx.me/mock/5baf3052f7da7e07e04a5116/antd-pro',
-        target: 'https://mock.ihx.me/mock/5baf3052f7da7e07e04a5116/antd-pro',
-        ws: false,
-        changeOrigin: true
-      }
+      // '/api': {
+      //   // target: 'https://mock.ihx.me/mock/5baf3052f7da7e07e04a5116/antd-pro',
+      //   target: 'https://mock.ihx.me/mock/5baf3052f7da7e07e04a5116/antd-pro',
+      //   ws: false,
+      //   changeOrigin: true
+      // },
+    '/api/': {
+        // target: 'http://t-userapp.piaoliusan.com/', // 中台开发域名
+        target: 'http://c-userapp.piaoliusan.com/', // 中台测试域名
+        changeOrigin: true,
+        pathRewrite: { '^/api/': '' }
+    }
     }
   },
 
