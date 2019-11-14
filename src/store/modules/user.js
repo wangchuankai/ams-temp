@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import { login, getInfo, logout ,getCheck } from '@/api/login'
+import { login, getInfo, logout ,getCheck,modPassword } from '@/api/login'
 import { ACCESS_TOKEN } from '@/store/mutation-types'
 import { welcome } from '@/utils/util'
 import { setToken ,setBearer} from "@utils/util"
@@ -60,7 +60,21 @@ const user = {
         })
       })
     },
-
+    //修改密码
+    ChangePassworld ({ commit },param) {
+      return new Promise((resolve, reject) => {
+        modPassword(param).then(response => {
+          console.log(response)
+          // let result = response
+          // let Bearer = result.token;
+          //setBearer(Bearer);
+          resolve()
+        }).catch(error => {
+          reject(error)
+        })
+      })
+    },
+    
     // 获取用户信息
     GetInfo ({ commit }) {
       return new Promise((resolve, reject) => {

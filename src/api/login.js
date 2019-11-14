@@ -47,5 +47,14 @@ export function logout (uid) {
     data:{uid}
   })
 }
-
+export function modPassword (data) {
+  return axios({
+    url: '/center/home/newpwd',
+    method: 'post',
+    headers: {
+      'Content-Type': 'application/json;charset=UTF-8'
+    },
+    data:data
+  })
+}
 
