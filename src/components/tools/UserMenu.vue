@@ -28,12 +28,12 @@
         @cancel="handleCancel"
       >
       <a-form id="formPwd" class="" ref="formPwd" :form="form" @submit="handleSubmit">
-      <a-form-item label="原密码"  :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }">
+      <a-form-item label="原密码"  :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }">
         <a-input
           type="text"
           placeholder="请输入原密码"
           v-decorator="[
-            'username',
+            'old_password',
             {
               rules: [{ required: true, message: '原密码不可为空' }],
               validateTrigger: 'blur'
@@ -43,21 +43,21 @@
         </a-input>
       </a-form-item>
 
-      <a-form-item label="新密码"  :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }" >
+      <a-form-item label="新密码"  :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }" >
         <a-input
           type="text"
           autocomplete="false"
           placeholder="请输入密码"
-          v-decorator="['password', { rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur' }]"
+          v-decorator="['new_password', { rules: [{ required: true, message: '请输入密码' }], validateTrigger: 'blur' }]"
         >
         </a-input>
       </a-form-item>
-      <a-form-item label="确认密码"  :label-col="{ span: 4 }" :wrapper-col="{ span: 20 }" >
+      <a-form-item label="确认密码"  :label-col="{ span: 6 }" :wrapper-col="{ span: 18 }" >
         <a-input
           type="text"
           autocomplete="false"
           placeholder="请输入确认密码"
-          v-decorator="['password', { rules: [{ required: true, message: '请输入确认密' }], validateTrigger: 'blur' }]"
+          v-decorator="['rep_new_password', { rules: [{ required: true, message: '请输入确认密' }], validateTrigger: 'blur' }]"
         >
         </a-input>
       </a-form-item>
@@ -111,13 +111,9 @@ export default {
     },
     handleOk(e) {
       this.confirmLoading = true;
-      setTimeout(() => {
-        this.visible = false;
-        this.confirmLoading = false;
-      }, 2000);
+      this.handleSubmit(e);
     },
-    handleCancel(e) {
-      console.log('Clicked cancel button');
+    handleCancel() {
       this.visible = false;
     },
     handleSubmit(e) {
@@ -126,43 +122,37 @@ export default {
         form: { validateFields },
         ChangePassworld
       } = this
-
-      state.loginBtn = true
-
-      const validateFieldsKey = ['username', 'password']
+      const validateFieldsKey = ['old_password', 'new_password','rep_new_password']
 
       validateFields(validateFieldsKey, { force: true }, (err, values) => {
         if (!err) {
           console.log('login form', values)
           const loginParams = { ...values }
           // loginParams.password = md5(values.password)
-          // Login(loginParams)
-          //   .then(res => {
-          //     Check({cookie:res}).then(res=>{
-          //       this.loginSuccess(res);
-          //     })
-          //   })
-          //   .catch(err => this.requestFailed(err))
-          //   .finally(() => {
-          //     state.loginBtn = false
-          //   })
+          ChangePassworld(loginParams)
+            .then(res => {
+               this.loginSuccess(res);
+               this.handleCancel();
+            })
+            .catch(err => this.requestFailed(err))
+            .finally(() => {
+               this.confirmLoading = false;
+            })
         } else {
           setTimeout(() => {
-            // state.loginBtn = false
+            this.confirmLoading = false;
           }, 600)
         }
       })
     },
 
     loginSuccess(res) {
-      this.$router.push({ name: 'index' })
-      // 延迟 1 秒显示欢迎信息
       setTimeout(() => {
         this.$notification.success({
-          message: '欢迎',
-          description: `${timeFix()}，欢迎回来`
+          message: '成功',
+          description: `密码修改成功`
         })
-      }, 1000)
+      }, 100)
     },
     requestFailed(err) {
       this.$notification['error']({

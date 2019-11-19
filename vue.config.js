@@ -91,8 +91,8 @@ module.exports = {
     port: 8000,
     proxy: {
     '/api/': {
-        // target: 'http://t-userapp.piaoliusan.com/', // 中台开发域名
-        target: 'http://c-userapp.piaoliusan.com/', // 中台测试域名
+        target: 'http://t-userapp.piaoliusan.com/', // 中台开发域名
+        // target: 'http://c-userapp.piaoliusan.com/', // 中台测试域名
         changeOrigin: true,
         pathRewrite: { '^/api/': '' }
     }

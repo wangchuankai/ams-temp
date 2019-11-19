@@ -59,6 +59,7 @@ service.interceptors.request.use(config => {
 
 // response interceptor
 service.interceptors.response.use((response) => {
+  console.log(response);
   if(response.data.code === 0){
     return response.data.data;
   }else{
