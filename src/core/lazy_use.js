@@ -7,6 +7,7 @@ import config from '@/config/defaultSettings'
 import '@/core/lazy_lib/components_use'
 import Viser from 'viser-vue'
 import 'ant-design-vue/dist/antd.less'
+import '../style/common.less'
 // ext library
 //import VueClipboard from 'vue-clipboard2'
 import PermissionHelper from '@/utils/helper/permission'

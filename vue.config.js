@@ -75,9 +75,9 @@ module.exports = {
         modifyVars: {
           /* less 变量覆盖，用于自定义 ant design 主题 */
 
+          'primary-color': '#1c9ef2',
+          'link-color': '#1c9ef2',
           /*
-          'primary-color': '#F5222D',
-          'link-color': '#F5222D',
           'border-radius-base': '4px',
           */
         },
@@ -98,7 +98,7 @@ module.exports = {
     }
     }
   },
-
+  productionSourceMap: false,
   lintOnSave: false,
   // babel-loader no-ignore node_modules/*
   transpileDependencies: []

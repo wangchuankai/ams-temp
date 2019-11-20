@@ -16,7 +16,7 @@ export const asyncRouterMap = [
         path: '/purchasing',
         name: 'purchasing',
         redirect: '/dashboard/workplace',
-        component: RouteView,
+        component: PageView,
         meta: { title: '采购管理', keepAlive: true, icon: bxAnaalyse, permission: [9]},
         children: [
           {
