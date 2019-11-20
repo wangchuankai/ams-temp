@@ -43,29 +43,7 @@
 
     </a-card>
 
-    <h2># AvatarList 组件 </h2>
 
-    <a-divider> AvatarList </a-divider>
-    <a-card style="margin-bottom: 3rem">
-      <avatar-list :max-length="3">
-        <avatar-list-item tips="Jake" src="https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png" />
-        <avatar-list-item tips="Andy" src="https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png" />
-        <avatar-list-item tips="Niko" src="https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png" />
-        <avatar-list-item tips="Niko" src="https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png" />
-        <avatar-list-item tips="Niko" src="https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png" />
-        <avatar-list-item tips="Niko" src="https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png" />
-        <avatar-list-item tips="Niko" src="https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png" />
-
-      </avatar-list>
-
-      <a-divider type="vertical" style="margin: 0 16px" />
-
-      <avatar-list size="mini">
-        <avatar-list-item tips="Jake" src="https://gw.alipayobjects.com/zos/rmsportal/zOsKZmFRdUtvpqCImOVY.png" />
-        <avatar-list-item tips="Andy" src="https://gw.alipayobjects.com/zos/rmsportal/sfjbOqnsXXJgNCjCzDBL.png" />
-        <avatar-list-item tips="Niko" src="https://gw.alipayobjects.com/zos/rmsportal/kZzEzemZyKLKFsojXItE.png" />
-      </avatar-list>
-    </a-card>
 
     <h2># CountDown 组件 </h2>
 
@@ -113,12 +91,10 @@
 // @ is an alias to /src
 
 import Trend from '@/components/Trend'
-import AvatarList from '@/components/AvatarList'
 import CountDown from '@/components/CountDown/CountDown'
 import Ellipsis from '@/components/Ellipsis'
 import NumberInfo from '@/components/NumberInfo'
 
-const AvatarListItem = AvatarList.AvatarItem
 
 export default {
   name: 'Home',
@@ -127,8 +103,6 @@ export default {
     Ellipsis,
     CountDown,
     Trend,
-    AvatarList,
-    AvatarListItem
   },
   data () {
     return {

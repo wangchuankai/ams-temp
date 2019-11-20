@@ -11,7 +11,6 @@ import RankList from '@/components/Charts/RankList'
 import TransferBar from '@/components/Charts/TransferBar'
 
 // pro components
-import AvatarList from '@/components/AvatarList'
 import CountDown from '@/components/CountDown'
 import Ellipsis from '@/components/Ellipsis'
 import FooterToolbar from '@/components/FooterToolbar'
@@ -22,11 +21,9 @@ import Trend from '@/components/Trend'
 import STable from '@/components/Table'
 import MultiTab from '@/components/MultiTab'
 import Result from '@/components/Result'
-import IconSelector from '@/components/IconSelector'
 import ExceptionPage from '@/components/Exception'
 
 export {
-  AvatarList,
   Bar,
   ChartCard,
   Liquid,
@@ -50,5 +47,4 @@ export {
   MultiTab,
   Result,
   ExceptionPage,
-  IconSelector
 }
