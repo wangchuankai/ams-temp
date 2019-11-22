@@ -8,6 +8,7 @@ function isProd () {
   return process.env.NODE_ENV === 'production'
 }
 console.log(isProd ());
+// console.log(process.env.ams_dev.NODE_ENV);
 const assetsCDN = {
   css: [],
   // https://unpkg.com/browse/vue@2.6.10/
@@ -112,7 +113,7 @@ module.exports = {
     }
     }
   },
-  productionSourceMap: true,
+  productionSourceMap: false,
   lintOnSave: false,
   // babel-loader no-ignore node_modules/*
   transpileDependencies: []

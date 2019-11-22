@@ -1,9 +1,10 @@
 
 import { axios } from '@/utils/request'
-let api = 'api';
+let API = process.env.VUE_APP_WEB_API;
+let MOCK = process.env.VUE_APP_WEB_API_MOCK;
+
 console.log(process.env.NODE_ENV);
-let node_env = process.env.NODE_ENV;
-node_env=='development'?api:api=''
+
 /**
  * login func
  * parameter: {
@@ -15,7 +16,7 @@ node_env=='development'?api:api=''
  */
 export function login (parameter) {
   return axios({
-    url: api+ '/center/login/login',
+    url: API+ '/center/login/login',
     method: 'post',
     data: parameter
   })
@@ -23,7 +24,7 @@ export function login (parameter) {
 //验证登入状态接口
 export const getCheck = (parameter) => {
   return axios.request({
-      url: api+  '/center/login/check',
+      url: API+  '/center/login/check',
       data:parameter,
       method: 'post'
   })
@@ -31,7 +32,7 @@ export const getCheck = (parameter) => {
 
 export function getInfo (source) {
   return axios({
-    url: api+ '/center/common/info',
+    url: API+ '/center/common/info',
     method: 'post',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
@@ -42,7 +43,7 @@ export function getInfo (source) {
 
 export function logout (uid) {
   return axios({
-    url: api+ '/center/login/logout',
+    url: API+ '/center/login/logout',
     method: 'post',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
@@ -52,7 +53,7 @@ export function logout (uid) {
 }
 export function modPassword (data) {
   return axios({
-    url: api+ '/center/home/newpwd',
+    url: API+ '/center/home/newpwd',
     method: 'post',
     headers: {
       'Content-Type': 'application/json;charset=UTF-8'
