@@ -29,7 +29,9 @@ export default {
       this.name = this.$route.name
       this.$route.matched.forEach(item => {
         // item.name !== 'index' && this.breadList.push(item)
-        this.breadList.push(item)
+        if (item.meta.hiddenBread !== true) {
+          this.breadList.push(item)
+        }
       })
     }
   },

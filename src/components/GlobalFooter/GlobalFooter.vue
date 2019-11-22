@@ -1,20 +1,5 @@
 <template>
   <div class="footer">
-    <div class="links">
-      <a
-        href="http://user.piaoliusan.com/"
-        target="_blank"
-      >用户中心</a>
-      <a
-        href="http://crm.piaoliusan.com/"
-        target="_blank"
-      >
-        <!-- <a-icon type="github" /> -->
-          CRM系统
-        </a>
-      <a href="http://css.piaoliusan.com/">客服系统</a>
-      <a href="http://bi.piaoliusan.com/">BI系统</a>
-    </div>
     <div class="copyright">
       Copyright
       <a-icon type="copyright" />  2017-2018 深圳市漂流伞科技有限公司 粤ICP备17058669号

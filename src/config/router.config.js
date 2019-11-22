@@ -8,22 +8,47 @@ export const asyncRouterMap = [
     path: '/',
     name: 'index',
     component: BasicLayout,
-    meta: { title: '首页' },
     redirect: '/purchasing/order',
+    meta: { title: '首页' },
     children: [
       // newpage
       {
         path: '/purchasing',
         name: 'purchasing',
-        redirect: '/dashboard/workplace',
         component: PageView,
         meta: { title: '采购管理', keepAlive: true, icon: bxAnaalyse, permission: [9]},
+        redirect: '/purchasing/order',
         children: [
           {
             path: '/purchasing/order',
-            name: 'order',
-            component: () => import('@/views/purchasing/Order'),
-            meta: { title: '采购订单', keepAlive: false, permission: [9] }
+            name: 'orderIndex',
+            component:  () => import('@/views/purchasing/Index'),
+            meta: { title: '采购订单', keepAlive: true, permission: [9] },
+            redirect: '/purchasing/order/list',
+            hideChildrenInMenu:true,
+            children:[
+              {
+                path: '/purchasing/order/list',
+                name: 'order',
+                hidden:true,
+                component: () => import('@/views/purchasing/Order'),
+                meta: { title: '采购订单', keepAlive: true,hiddenBread:true, permission: [9]},
+              },
+              {
+                path: '/purchasing/order/detail/:id',
+                name: 'detail',
+                component: () => import('@/views/purchasing/Detail'),
+                meta: { title: '订单详情', keepAlive: true, permission: [9]},
+                
+              },
+              {
+                path: '/purchasing/order/add',
+                name: 'orderAdd',
+                component: () => import('@/views/purchasing/add/Add'),
+                meta: { title: '新增', keepAlive: true, permission: [9]},
+                
+              }
+            ]
           }
         ]
       },
